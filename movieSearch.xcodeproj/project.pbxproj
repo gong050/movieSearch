@@ -13,8 +13,8 @@
 		C20315F721A7163D00ECC27F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C20315F621A7163D00ECC27F /* Assets.xcassets */; };
 		C20315FA21A7163D00ECC27F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C20315F821A7163D00ECC27F /* LaunchScreen.storyboard */; };
 		C203160621AABA9B00ECC27F /* MovieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203160521AABA9B00ECC27F /* MovieTVCell.swift */; };
-		C203160821AABBA700ECC27F /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203160721AABBA700ECC27F /* Movie.swift */; };
 		C203160A21AABD4000ECC27F /* MovieListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203160921AABD4000ECC27F /* MovieListVC.swift */; };
+		ED1685F521BFB793005C475B /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1685F421BFB793005C475B /* Movie.swift */; };
 		F17CC26CB47FCFDF761E5F98 /* Pods_movieSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623B8368A943A83368DACA8A /* Pods_movieSearch.framework */; };
 /* End PBXBuildFile section */
 
@@ -29,9 +29,10 @@
 		C20315F921A7163D00ECC27F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C20315FB21A7163D00ECC27F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C203160521AABA9B00ECC27F /* MovieTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTVCell.swift; sourceTree = "<group>"; };
-		C203160721AABBA700ECC27F /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		C203160921AABD4000ECC27F /* MovieListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListVC.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		CC13D6BD20A30234A29E26D7 /* Pods-movieSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieSearch/Pods-movieSearch.debug.xcconfig"; sourceTree = "<group>"; };
+		ED1685F421BFB793005C475B /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		ED9ECAAA21BFC04200DAC2B3 /* movieSearch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "movieSearch-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,7 +67,8 @@
 		C202172521BEDD79007324F0 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				C203160721AABBA700ECC27F /* Movie.swift */,
+				ED1685F421BFB793005C475B /* Movie.swift */,
+				ED9ECAAA21BFC04200DAC2B3 /* movieSearch-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -147,6 +149,7 @@
 				TargetAttributes = {
 					C20315E821A7163C00ECC27F = {
 						CreatedOnToolsVersion = 10.1;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -193,6 +196,8 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-movieSearch/Pods-movieSearch-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
+				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -200,6 +205,8 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -239,7 +246,7 @@
 				C203160621AABA9B00ECC27F /* MovieTVCell.swift in Sources */,
 				C20315ED21A7163C00ECC27F /* AppDelegate.swift in Sources */,
 				C203160A21AABD4000ECC27F /* MovieListVC.swift in Sources */,
-				C203160821AABBA700ECC27F /* Movie.swift in Sources */,
+				ED1685F521BFB793005C475B /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +393,7 @@
 			baseConfigurationReference = CC13D6BD20A30234A29E26D7 /* Pods-movieSearch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = movieSearch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -394,6 +402,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = AlexKustov.movieSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "movieSearch/Models/movieSearch-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -404,6 +414,7 @@
 			baseConfigurationReference = 402683178C6C866C6F1D09AB /* Pods-movieSearch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = movieSearch/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -412,6 +423,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = AlexKustov.movieSearch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "movieSearch/Models/movieSearch-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

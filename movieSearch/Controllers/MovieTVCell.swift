@@ -12,17 +12,31 @@ import AlamofireImage
 class MovieTVCell: UITableViewCell {
     
     @IBOutlet weak var moviePoster: UIImageView!
-    @IBOutlet weak var movieTitle: UILabel!
     @IBOutlet weak var movieOverview: UILabel!
+    @IBOutlet weak var movieTitle: UILabel!
     
     var movie : Movie! {
         didSet {
-            movieTitle.text = movie.title
+            guard let title = movie.title else {
+                return
+            }
+            movieTitle.text = title
             movieOverview.text = movie.overview
             if let moviePosterPath = movie.poster {
                 moviePoster.af_setImage(withURL: URL(string: moviePosterPath)!)
             }
         }
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        // Initialization code
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Configure the view for the selected state
     }
     
 }

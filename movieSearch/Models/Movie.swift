@@ -2,25 +2,28 @@
 //  Movie.swift
 //  movieSearch
 //
-//  Created by Alex Kustov on 25/11/2018.
-//  Copyright © 2018 Alex Kustov. All rights reserved.
+//  Created by a.kustov on 11/12/2018.
+//Copyright © 2018 Alex Kustov. All rights reserved.
 //
 
 import Foundation
-import UIKit
+import RealmSwift
+import Realm
 
-class Movie {
-    var poster: String? = nil
-    var title: String? = nil
-    var overview: String? = nil
-    var release_date: String? = nil
+class Movie: Object {
+    
+    @objc dynamic var poster: String? = nil
+    @objc dynamic var title: String? = nil
+    @objc dynamic var overview: String? = nil
+    @objc dynamic var release_date: String? = nil
+    
     
     /*
      Инициализация модели данных Movie
      На вход принимаем словарь (JSON)
      */
     
-    public func newMovie(dictionary: NSDictionary) -> Movie {
+    public func newMovie(dictionary: [String: Any]) -> Movie {
         let movie = Movie()
         
         if let posterUrl = dictionary["poster_path"] as? String {
@@ -41,12 +44,28 @@ class Movie {
      На вход принимаем массив словарей, которые поэлементно отправляем в метод newMovie() для инициализации объектов Movie
      */
     
-    public func movies(array: [NSDictionary]) -> [Movie] {
+    public func movies(array: [String: Any]) -> [Movie] {
         var movies = [Movie]()
         
-        for dictionary in array {
-            let movie = newMovie(dictionary: dictionary)
-            movies.append(movie)
+        guard let moviesInput = array["results"] as? [[String: Any]] else {
+            print("ERROR: Error with convertation result array")
+            return movies
+        }
+        
+        for movie in moviesInput {
+            /*
+            print("=================================")
+            print(movie)
+            print("=================================")
+            */
+            let movieAdd = newMovie(dictionary: movie)
+            
+            try! realmObject.write() {
+                realmObject.add(movieAdd)
+                print("New movie: \(movieAdd.title)")
+                movies.append(movieAdd)
+            }
+            
         }
         return movies
     }

@@ -74,21 +74,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="OZe-ZM-75x" customClass="MovieTVCell" customModule="movieSearch" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieTVCell" id="OZe-ZM-75x" customClass="MovieTVCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="110"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="OZe-ZM-75x" id="Qu2-cM-ukJ">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="109.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mfx-Aa-gCR">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mfx-Aa-gCR" userLabel="moviePoster">
                                                     <rect key="frame" x="27" y="11.5" width="76" height="87"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="mfx-Aa-gCR" secondAttribute="height" multiplier="76:87" id="Dfm-Bh-rR3"/>
                                                         <constraint firstAttribute="width" constant="76" id="WTx-kD-0ZB"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="RRx-1G-EPR">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Movie Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="1" translatesAutoresizingMaskIntoConstraints="NO" id="RRx-1G-EPR" userLabel="movieTitle">
                                                     <rect key="frame" x="111" y="35" width="233" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="Cxu-he-xsc"/>
@@ -97,7 +97,7 @@
                                                     <color key="textColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Genre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHd-Ed-fRD">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Genre" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHd-Ed-fRD" userLabel="movieOverview">
                                                     <rect key="frame" x="111" y="55" width="233" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="EUz-69-2pC"/>
@@ -120,15 +120,20 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="asd" destination="RRx-1G-EPR" id="BoX-6M-Ub6"/>
                                             <outlet property="movieImageView" destination="mfx-Aa-gCR" id="hOJ-oC-ACk"/>
                                             <outlet property="movieOverview" destination="CHd-Ed-fRD" id="cBk-hp-XV0"/>
                                             <outlet property="moviePoster" destination="mfx-Aa-gCR" id="X1g-eW-HLf"/>
                                             <outlet property="movieSubTitleView" destination="CHd-Ed-fRD" id="0Y0-9x-YOp"/>
-                                            <outlet property="movieTitle" destination="RRx-1G-EPR" id="ANd-zA-e1m"/>
+                                            <outlet property="movieTitle" destination="RRx-1G-EPR" id="no9-DM-SLk"/>
                                             <outlet property="movieTitleView" destination="RRx-1G-EPR" id="mDr-aE-vyA"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="8ND-04-oxW" id="vvV-VC-pmd"/>
+                                    <outlet property="delegate" destination="8ND-04-oxW" id="UyJ-bU-xrC"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -141,6 +146,9 @@
                         <viewLayoutGuide key="safeArea" id="Qlu-d0-rEr"/>
                     </view>
                     <navigationItem key="navigationItem" id="3Bz-5P-9Od"/>
+                    <connections>
+                        <outlet property="tableView" destination="VzY-NN-eaz" id="5tg-nf-jEr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pK8-Es-JIY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
