@@ -17,31 +17,34 @@ class Movie: Object {
     @objc dynamic var overview: String? = nil
     @objc dynamic var release_date: String? = nil
     
+    // К хвосту baseImageURL прибавляем адрес на определенную картинку
+    let baseImageURL = "http://image.tmdb.org/t/p/w500"
     
     /*
      Инициализация модели данных Movie
-     На вход принимаем словарь (JSON)
+     На вход принимаем массив (JSON) [key: value], в котором находится информация о фильме.
      */
     
-    public func newMovie(dictionary: [String: Any]) -> Movie {
+    public func newMovie(json: [String: Any]) -> Movie {
         let movie = Movie()
         
-        if let posterUrl = dictionary["poster_path"] as? String {
-            movie.poster = posterUrl
+        if let posterUrl = json["poster_path"] as? String {
+            movie.poster = baseImageURL + posterUrl
         } else {
             movie.poster = nil
         }
         
-        movie.title = dictionary["title"] as? String
-        movie.overview = dictionary["overview"] as? String
-        movie.release_date = dictionary["release_date"] as? String
+        movie.title = json["title"] as? String
+        movie.overview = json["overview"] as? String
+        movie.release_date = json["release_date"] as? String
         
         return movie
     }
     
     /*
      Функция, возвращающая массив объектов класса Movie
-     На вход принимаем массив словарей, которые поэлементно отправляем в метод newMovie() для инициализации объектов Movie
+     На вход принимаем массив (JSON) фильмов [key: value], которые поэлементно отправляем
+     в метод newMovie() для инициализации объектов Movie.
      */
     
     public func movies(array: [String: Any]) -> [Movie] {
@@ -53,16 +56,11 @@ class Movie: Object {
         }
         
         for movie in moviesInput {
-            /*
-            print("=================================")
-            print(movie)
-            print("=================================")
-            */
-            let movieAdd = newMovie(dictionary: movie)
+            let movieAdd = newMovie(json: movie)
             
             try! realmObject.write() {
                 realmObject.add(movieAdd)
-                print("New movie: \(movieAdd.title)")
+                print("New movie: \(movieAdd.title), ImageURL: \(movieAdd.poster)")
                 movies.append(movieAdd)
             }
             

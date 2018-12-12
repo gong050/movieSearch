@@ -15,6 +15,7 @@
 		C203160621AABA9B00ECC27F /* MovieTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203160521AABA9B00ECC27F /* MovieTVCell.swift */; };
 		C203160A21AABD4000ECC27F /* MovieListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C203160921AABD4000ECC27F /* MovieListVC.swift */; };
 		ED1685F521BFB793005C475B /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1685F421BFB793005C475B /* Movie.swift */; };
+		ED39124421C132F100404DD6 /* MovieDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED39124321C132F100404DD6 /* MovieDetailVC.swift */; };
 		F17CC26CB47FCFDF761E5F98 /* Pods_movieSearch.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 623B8368A943A83368DACA8A /* Pods_movieSearch.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +33,7 @@
 		C203160921AABD4000ECC27F /* MovieListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListVC.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		CC13D6BD20A30234A29E26D7 /* Pods-movieSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieSearch/Pods-movieSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1685F421BFB793005C475B /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		ED39124321C132F100404DD6 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
 		ED9ECAAA21BFC04200DAC2B3 /* movieSearch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "movieSearch-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,6 +62,7 @@
 			children = (
 				C203160921AABD4000ECC27F /* MovieListVC.swift */,
 				C203160521AABA9B00ECC27F /* MovieTVCell.swift */,
+				ED39124321C132F100404DD6 /* MovieDetailVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 				C203160621AABA9B00ECC27F /* MovieTVCell.swift in Sources */,
 				C20315ED21A7163C00ECC27F /* AppDelegate.swift in Sources */,
 				C203160A21AABD4000ECC27F /* MovieListVC.swift in Sources */,
+				ED39124421C132F100404DD6 /* MovieDetailVC.swift in Sources */,
 				ED1685F521BFB793005C475B /* Movie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

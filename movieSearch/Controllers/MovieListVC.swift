@@ -13,40 +13,39 @@ import Realm
 import RealmSwift
 
 let apiKey = "fb67545d44e4cb12c97ecbc280e9bd21"
-//Подключаем БД
 let realmObject = try! Realm()
 
 class MovieListVC: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
-    
-    var movies: [Movie]? = []
+    //Объявляем массив объектов фильма для того, чтобы отображать его непосредственно в UITableViewCell
+    var movieOnClient: [Movie]? = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.tableView.register(MovieTVCell.self, forCellReuseIdentifier: "MovieCell")
         
         let realmObject = try! Realm()
         let dbMovies = realmObject.objects(Movie.self)
-        
+     
         /*
-         Проверяем наличие фильмов в ДБ.
+         Проверяем наличие фильмов в БД.
          Если их нет, то выполняем запрос в TMDB
          */
+        
         if dbMovies.count > 0 {
             print("Found movies in Data Base")
-            var newMoviesArray = [Movie]()
+            var movies = [Movie]()
             for movie in dbMovies {
-                newMoviesArray.append(movie)
+                movies.append(movie)
             }
-            movies = newMoviesArray
+            movieOnClient = movies
         } else {
             sendRequest()
         }
     }
     
     /*
-     Выполняем запрос в TMDB для получения JSON со списком фильмов.
+     Функция выполняющая запрос в TMDB для получения JSON со списком фильмов.
      Для написания запросов была использована библиотека Alamofire.
     */
     
@@ -61,9 +60,8 @@ class MovieListVC: UIViewController {
                 print("ERROR: Error with type transformation with status code: \(String(describing: response.result.error))");
                 return
             }
-            
-            let movies = Movie()
-            movies.movies(array: arrayOfMovies)
+            let movie = Movie()
+            self.movieOnClient = movie.movies(array: arrayOfMovies)
             self.tableView.reloadData()
         }
     }
@@ -74,19 +72,24 @@ class MovieListVC: UIViewController {
 extension MovieListVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies?.count ?? 0
+        return movieOnClient?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell", for: indexPath) as! MovieTVCell
-        
-        cell.movieOverview?.text = "ge"
-        cell.movieTitle?.text = "HELLO"
-        cell.moviePoster?.af_setImage(withURL: URL(string: "https://source.unsplash.com/random")!)
-        
-        //cell.movie = movies![indexPath.row]
+        cell.movie = movieOnClient![indexPath.row]
         
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let movie = movieOnClient![indexPath!.row]
+        
+        let MovieDetailVC = segue.destination as! MovieDetailVC
+        
+        MovieDetailVC.movie = movie
     }
 
 }
