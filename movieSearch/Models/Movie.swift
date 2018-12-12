@@ -16,6 +16,7 @@ class Movie: Object {
     @objc dynamic var title: String? = nil
     @objc dynamic var overview: String? = nil
     @objc dynamic var release_date: String? = nil
+    @objc dynamic var bookmark: String? = "NO" // хотел сделать bool, но xcode ругается. Поэтому "NO"
     
     // К хвосту baseImageURL прибавляем адрес на определенную картинку
     let baseImageURL = "http://image.tmdb.org/t/p/w500"

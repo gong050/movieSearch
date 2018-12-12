@@ -11,6 +11,7 @@ import AlamofireImage
 
 class MovieTVCell: UITableViewCell {
 
+    @IBOutlet weak var bookmarkIcon: UIImageView!
     @IBOutlet weak var moviePoster: UIImageView!
     @IBOutlet weak var movieOverview: UILabel!
     @IBOutlet weak var movieTitle: UILabel!
@@ -24,6 +25,11 @@ class MovieTVCell: UITableViewCell {
             movieOverview.text = movie.overview
             if let moviePosterPath = movie.poster {
                 moviePoster.af_setImage(withURL: URL(string: moviePosterPath)!)
+            }
+            if movie.bookmark == "NO" {
+                bookmarkIcon.image = nil
+            } else {
+                bookmarkIcon.image = UIImage(named: "favourites")
             }
         }
     }

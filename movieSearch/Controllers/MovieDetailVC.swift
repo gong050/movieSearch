@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Realm
+import RealmSwift
 
 class MovieDetailVC: UIViewController {
 
@@ -17,11 +19,18 @@ class MovieDetailVC: UIViewController {
     @IBOutlet weak var movieOverview: UILabel!
     
     var movie: Movie?
+    let realmObject = try! Realm()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Добавляем в навигацию кнопку .bookmarks. При нажатии срабатывает функция addToBookmarks
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .bookmarks, target: self, action: #selector(addToBookmarks))
+        
+        if movie?.bookmark == "NO" {
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.red
+        } else {
+            navigationItem.rightBarButtonItem?.tintColor = UIColor.green
+        }
         
         // Заполняем данными поля.
         movieTitle.numberOfLines = 3 // Если бы я знал, как это заменить, то я бы это заменил
@@ -33,11 +42,24 @@ class MovieDetailVC: UIViewController {
         if let moviePosterPath = movie?.poster {
             moviePoster.af_setImage(withURL: URL(string: moviePosterPath)!)
         }
-        
     }
-    // Xcode попросил добавить @objc. Я не стал сопротивляться
+    
+    /*
+        Xcode попросил добавить @objc. Я не стал сопротивляться
+        При нажатии на кнопку bookmark меняем состояние movie.bookmark и меняет цвет кнопки bookmark
+     */
     @objc func addToBookmarks() {
-        print("TAP!")
+        if movie!.bookmark == "NO" {
+            try! realmObject.write {
+                movie?.bookmark = "YES"
+                navigationItem.rightBarButtonItem?.tintColor = UIColor.green
+            }
+        } else {
+            try! realmObject.write {
+                movie?.bookmark = "NO"
+                navigationItem.rightBarButtonItem?.tintColor = UIColor.red
+            }
+        }
     }
 
 }
