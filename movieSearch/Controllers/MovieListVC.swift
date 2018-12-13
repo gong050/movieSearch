@@ -14,10 +14,10 @@ import RealmSwift
 
 let apiKey = "fb67545d44e4cb12c97ecbc280e9bd21"
 let realmObject = try! Realm()
+let movieSearchBar = UISearchController(searchResultsController: nil)
 
 class MovieListVC: UIViewController {
 
-    @IBOutlet weak var movieSearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     //Объявляем массив объектов фильма для того, чтобы отображать его непосредственно в UITableViewCell
@@ -52,10 +52,19 @@ class MovieListVC: UIViewController {
             }
         }
         
+        // Объявляем search bar
+        movieSearchBar.searchResultsUpdater = self
+        movieSearchBar.dimsBackgroundDuringPresentation = false
+        movieSearchBar.searchBar.placeholder = "Search by movie title"
+        definesPresentationContext = true
+        tableView.tableHeaderView = movieSearchBar.searchBar
+        
+        // Дублируем данные для реализации логики поиска
+        filteredMovieOnClient = movieOnClient
     }
     
     /*
-     При переходе из MovieDetailVC в MovieListVC состояние tableView изменится,
+     При переходе из MovieDetailVC в MovieListVC состояние tableView может изменится,
      т.к. мы можем сделать определенный фильм избранным в MovieDetailVC, поэтому необходимо обновить
      состояние MovieListVC
      */
@@ -68,6 +77,7 @@ class MovieListVC: UIViewController {
     /*
      Функция выполняющая запрос в TMDB для получения JSON со списком фильмов.
      Для написания запросов была использована библиотека Alamofire.
+     На вход приходит номер страницы, которую необходимо принять. по сути: задел на пагинацию.
     */
     
     func sendRequest(page: Int) {
@@ -82,7 +92,8 @@ class MovieListVC: UIViewController {
                 return
             }
             let movie = Movie()
-            self.movieOnClient = movie.movies(array: arrayOfMovies)
+            self.movieOnClient? += movie.movies(array: arrayOfMovies)
+            self.filteredMovieOnClient = self.movieOnClient
             self.tableView.reloadData()
         }
     }
@@ -115,5 +126,22 @@ extension MovieListVC: UITableViewDelegate, UITableViewDataSource {
         cell.movie = movieOnClient![indexPath.row]
         
         return cell
+    }
+}
+
+/*
+ Делегируем UISearchResultsUpdating для реализации логики поиска фильмов.
+ Логика: перетасовываем объекты между двумя переменными: movieOnClient и filteredMovieOnClient
+ */
+
+extension MovieListVC: UISearchResultsUpdating {
+    func updateSearchResults(for movieSearchBar: UISearchController) {
+        if movieSearchBar.searchBar.text! == "" {
+            self.movieOnClient = self.filteredMovieOnClient
+        } else {
+            // Filter the results
+            self.movieOnClient = self.filteredMovieOnClient?.filter { $0.title!.lowercased().contains(movieSearchBar.searchBar.text!.lowercased()) }
+        }
+        self.tableView.reloadData()
     }
 }

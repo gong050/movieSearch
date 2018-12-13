@@ -34,7 +34,6 @@
 		CC13D6BD20A30234A29E26D7 /* Pods-movieSearch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-movieSearch.debug.xcconfig"; path = "Pods/Target Support Files/Pods-movieSearch/Pods-movieSearch.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1685F421BFB793005C475B /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		ED39124321C132F100404DD6 /* MovieDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailVC.swift; sourceTree = "<group>"; };
-		ED9ECAAA21BFC04200DAC2B3 /* movieSearch-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "movieSearch-Bridging-Header.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,7 +70,6 @@
 			isa = PBXGroup;
 			children = (
 				ED1685F421BFB793005C475B /* Movie.swift */,
-				ED9ECAAA21BFC04200DAC2B3 /* movieSearch-Bridging-Header.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
